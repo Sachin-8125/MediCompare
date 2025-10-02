@@ -1,4 +1,4 @@
-import {PrismaClient} from '@prisma/client';
+import {PrismaClient} from '../generated/prisma/index.js'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -6,9 +6,11 @@ const prisma = new PrismaClient();
 
 //user registration
 const registerUser = async(req, res) => {
+    console.log('Registration request body:', req.body);
     const {name, email, password} = req.body;
 
     if(!name || !email || !password){
+        console.log('Missing fields:', {name: !!name, email: !!email, password: !!password});
         return res.status(400).json({msg: 'Please enter all fields'});
     }
     try {
@@ -32,7 +34,8 @@ const registerUser = async(req, res) => {
             user: { id: user.id, name: user.name, email: user.email },
         });
     } catch (error) {
-        res.status(500).json({ error: 'Server error' });
+        console.error('Registration error:', error);
+        res.status(500).json({ error: 'Server error', details: error.message });
     }
 };
 
@@ -44,7 +47,7 @@ const loginUser = async(req,res) => {
     }
     
     try {
-        const user = await prisma.suer.findUnique({where: {email}});
+        const user = await prisma.user.findUnique({where: {email}});
         if(!user){
             return res.status(400).json({msg: "Invalid Credentials"});
         }
