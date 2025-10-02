@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import AuthForm from "./AuthForm";
 
-const API_URL = 'http://localhost:5000/api'
+const API_URL = import.meta.env.VITE_API_URL;
 
 const LoginPage = ({navigate, setToken, setError}) => {
     const handleLogin = async({email,password}) => {

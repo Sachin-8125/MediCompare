@@ -2,13 +2,20 @@ import React from "react";
 import axios from 'axios';
 import AuthForm from "./AuthForm";
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const RegisterPage = ({navigate, setToken, setError}) => {
     const handleRegister = async({name,email,password}) => {
-        const res = await axios.post(`${API_URL}/auth/register`,{name,email,password});
-        setToken(res.data.token);
-        navigate('home');
+        try {
+            console.log('API_URL:', API_URL);
+            console.log('Sending registration data:', {name, email, password: '***'});
+            const res = await axios.post(`${API_URL}/auth/register`,{name,email,password});
+            setToken(res.data.token);
+            navigate('home');
+        } catch (error) {
+            console.error('Registration error:', error.response?.data || error.message);
+            setError(error.response?.data?.msg || 'Registration failed');
+        }
     };
     return (
         <>
