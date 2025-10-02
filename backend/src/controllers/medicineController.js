@@ -1,7 +1,6 @@
 import { PrismaClient } from "../generated/prisma/index.js";
 const prisma = new PrismaClient();
 
-//search for medicines
 const searchMedicines = async(req, res) => {
     const {query} = req.query;
 
@@ -19,7 +18,6 @@ const searchMedicines = async(req, res) => {
                     ],
                 },
             },
-
             include: {
                 medicine: true,
                 pharmacy: true
@@ -30,8 +28,7 @@ const searchMedicines = async(req, res) => {
         });
         res.json(results);
     } catch (error) {
-        console.log("Search Error: ",error);
-        res.status(500).json({ error: 'Server error while searching for medicines' });
+        res.status(500).json({ error: 'Server error' });
     }
 };
 

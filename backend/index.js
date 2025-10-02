@@ -9,23 +9,19 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-// middleware
+
 app.use(cors());
 app.use(express.json());
 
-// api routes
 app.use('/api/auth', authRoutes);
 app.use('/api/medicines', medicineRoutes);
 
-// Root route
 app.get('/', (req, res) => {
-  res.send('Prescription Affordability API is running...');
+  res.json({ status: 'ok' });
 });
 
-// Start the server
 app.listen(PORT, async () => {
-  console.log(`Server is running on port ${PORT}`);
-  // Seed the database with initial data on server start
+  console.log(`Server running on port ${PORT}`);
   if (process.env.NODE_ENV !== 'production') {
     await seedDatabase();
   }
