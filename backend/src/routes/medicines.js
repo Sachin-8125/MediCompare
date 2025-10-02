@@ -1,9 +1,10 @@
 import express from 'express'
-const { searchMedicines } = require('../controllers/medicineController');
+import searchMedicines from '../controllers/medicineController.js';
+
 
 const router = express.Router();
 
 // Route to search for medicines
 router.get('/search', searchMedicines);
 
-module.exports = router;
+export default router;
