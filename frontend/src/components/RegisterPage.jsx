@@ -7,7 +7,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 const RegisterPage = ({navigate, setToken, setError}) => {
     const handleRegister = async({name,email,password}) => {
         try {
-            console.log('API_URL:', API_URL);
             console.log('Sending registration data:', {name, email, password: '***'});
             const res = await axios.post(`${API_URL}/auth/register`,{name,email,password});
             setToken(res.data.token);
