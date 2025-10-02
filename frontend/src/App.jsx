@@ -10,7 +10,9 @@ import RegisterPage from './components/RegisterPage';
 import ResultPage from './components/ResultPage';
 
 // --- Configuration ---
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+console.log('API_URL:', API_URL);
+console.log('Environment:', import.meta.env.VITE_API_URL);
 
 // --- Main App Component ---
 export default function App() {
